@@ -13,7 +13,6 @@ interface BooksResponse {
 
 function App() {
   const { data, isLoading, isError } = useGetBooksQuery(undefined);
-  // What should render
   console.log("books", data);
   let content = null;
 
