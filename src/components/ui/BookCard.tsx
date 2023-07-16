@@ -1,22 +1,23 @@
 import { Link } from "react-router-dom";
-import { useDeleteBookMutation } from "../features/Api/apiSlice";
+import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
+// import { useDeleteBookMutation } from "../features/Api/apiSlice";
+import bookImg from "../../assets/book.jpg";
 
-const BookCard = ({ book }) => {
-  const { id, name, featured, price, rating, thumbnail, author } = book;
-  const [deleteBook, { isSuccess, isError, isLoading }] =
-    useDeleteBookMutation();
+const BookCard = ({ book }: { book: IBook }) => {
+  const { author, genre, publicationDate, title } = book;
   return (
     <div className="book-card">
       <img
         className="h-[240px] w-[170px] object-cover"
-        src={thumbnail}
+        src={bookImg}
         alt="book"
       />
       <div className="flex-1 h-full pr-2 pt-2 flex flex-col">
         <div className="flex items-center justify-between">
-          {featured ? <span className="mhr-badge">featured</span> : <span />}
+          <span className="mhr-badge">featured</span>
+          {/* {featured ? <span className="mhr-badge">featured</span> : <span />} */}
           <div className="text-gray-500 space-x-2">
-            <Link to={`/edit-book/${id}`}>
+            <Link to={`/edit-book/`}>
               <button className="mhr-edit ">
                 <svg
                   fill="none"
@@ -33,7 +34,7 @@ const BookCard = ({ book }) => {
                 </svg>
               </button>
             </Link>
-            <button className="mhr-deleteBook" onClick={() => deleteBook(id)}>
+            <button className="mhr-deleteBook">
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -52,8 +53,10 @@ const BookCard = ({ book }) => {
         </div>
 
         <div className="space-y-2 mt-4 h-full">
-          <h4 className="mhr-book-name">{name}</h4>
-          <p className="mhr-author">{author}</p>
+          <h4 className="mhr-book-name">name: {title}</h4>
+          <p className="mhr-author">author: {author}</p>
+          <p className="mhr-author">Genre: {genre}</p>
+          <p className="mhr-author">Publication: {publicationDate}</p>
           <div className="mhr-stars">
             <svg viewBox="0 0 20 20" fill="currentColor" className="star">
               <path
@@ -79,7 +82,7 @@ const BookCard = ({ book }) => {
               />
             </svg>
           </div>
-          <p className="mhr-price">BDT {price}</p>
+          <p className="mhr-price">BDT price</p>
         </div>
       </div>
     </div>

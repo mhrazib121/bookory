@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 //   useAddBookMutation,
 //   useEditBookMutation,
 // } from "../features/Api/apiSlice";
-import Error from "./Error";
-import Success from "./Success";
 
 interface FormProps {
   book: any;
@@ -48,7 +46,7 @@ const From = ({ book, editMode }: FormProps) => {
   };
 
   const handleAddBook = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     // addBook({
     //   name,
     //   author,
@@ -61,7 +59,7 @@ const From = ({ book, editMode }: FormProps) => {
     navigate("/");
   };
   const handleEditBook = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     // editBook({
     //   id,
     //   data: {
@@ -144,7 +142,7 @@ const From = ({ book, editMode }: FormProps) => {
               type="number"
               id="mhr-rating"
               value={rating}
-              onChange={(e) => setRating(e.target.value)}
+              onChange={(e) => setRating(Number(e.target.value))}
               name="rating"
               min="1"
               max="5"
@@ -177,9 +175,9 @@ const From = ({ book, editMode }: FormProps) => {
           </button>
         )}
       </form>
-      {isSuccess && <Success message="Video was added successfully" />}
+      {/* {isSuccess && <Success message="Video was added successfully" />}
       {isError || editError ? <Error /> : null}
-      {editSuccess && <Success message="Video was edited successfully" />}
+      {editSuccess && <Success message="Video was edited successfully" />} */}
     </div>
   );
 };
