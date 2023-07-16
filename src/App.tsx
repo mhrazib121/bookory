@@ -9,32 +9,6 @@ import { IBook } from "./redux/Fetaures/AddNewBook/addNewBookSlice";
 import { useGetBooksQuery } from "./redux/Fetaures/Book/bookApi";
 
 function App() {
-  const { data, isLoading, isError } = useGetBooksQuery(undefined);
-  console.log("books", data);
-  let content = null;
-
-  if (isLoading) {
-    content = (
-      <>
-        <BookCardLoader />
-        <BookCardLoader />
-        <BookCardLoader />
-      </>
-    );
-  }
-  if (!isLoading && isError) {
-    content = <Error />;
-  }
-  if (!isLoading && !isError && data?.data.length > 0) {
-    content = (
-      <>
-        {data?.data?.map((book: IBook) => (
-          <BookCard key={book?.id} book={book} />
-        ))}
-      </>
-    );
-  }
-
   return (
     <div>
       <MainLayout />
