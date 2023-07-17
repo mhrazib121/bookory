@@ -8,10 +8,6 @@ import {
 } from "../../redux/Fetaures/Book/bookApi";
 import Error from "./Error";
 import Success from "./Success";
-// import {
-//   useAddBookMutation,
-//   useEditBookMutation,
-// } from "../features/Api/apiSlice";
 
 interface FormProps {
   book?: IBook;
@@ -19,15 +15,6 @@ interface FormProps {
 }
 
 const From = ({ book, editMode }: FormProps) => {
-  //   const {
-  //     id,
-  //     name: initialName,
-  //     author: initialAuthor,
-  //     thumbnail: initialThumbnail,
-  //     price: initialPrice,
-  //     rating: initialRating,
-  //     featured: initialFeatured,
-  //   } = book || {};
   const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
   const [
     editBook,

@@ -24,6 +24,12 @@ const productApi = api.injectEndpoints({
       }),
       invalidatesTags: ["comments"],
     }),
+    deleteBook: builder.mutation({
+      query: (id: string) => ({
+        url: `/books/${id}`,
+        method: "DELETE",
+      }),
+    }),
     // getComment: builder.query({
     //   query: (id) => `/comment/${id}`,
     //   providesTags: ["comments"],
@@ -37,6 +43,7 @@ export const {
   useAddBookMutation,
   useSingleBookQuery,
   useEditBookMutation,
+  useDeleteBookMutation,
   //   usePostCommentMutation,
   //   useSingleProductQuery,
 } = productApi;
