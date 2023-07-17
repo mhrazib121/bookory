@@ -4,7 +4,7 @@ import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
 import bookImg from "../../assets/book.jpg";
 
 const BookCard = ({ book }: { book: IBook }) => {
-  const { author, genre, publicationDate, title } = book;
+  const { author, genre, publicationDate, title, id } = book;
   return (
     <div className="book-card">
       <img
@@ -53,7 +53,9 @@ const BookCard = ({ book }: { book: IBook }) => {
         </div>
 
         <div className="space-y-2 mt-4 h-full">
-          <h4 className="mhr-book-name">name: {title}</h4>
+          <Link to={`${id!}`}>
+            <h4 className="mhr-book-name">name: {title}</h4>
+          </Link>
           <p className="mhr-author">author: {author}</p>
           <p className="mhr-author">Genre: {genre}</p>
           <p className="mhr-author">Publication: {publicationDate}</p>
