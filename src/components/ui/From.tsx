@@ -39,33 +39,20 @@ const From = ({ book, editMode }: FormProps) => {
   const [name, setName] = useState<string>(book?.title || "");
   const [author, setAuthor] = useState<string>(book?.author || "");
   const [genre, setGenre] = useState<string>(book?.genre || "");
-  // const [price, setPrice] = useState<number>();
-  // const [rating, setRating] = useState<number>();
-  // const [featured, setFeatured] = useState<boolean>();
 
   const resetFrom = () => {
     setName("");
     setAuthor("");
     setGenre("");
-    // setPrice(0);
-    // setRating(0);
-    // setFeatured(false);
   };
 
   console.log("error", isError);
 
   const date = new Date();
   console.log(date);
-  // const submittedData = {
-  //   title: name,
-  //   author,
-  //   genre,
-  //   publicationDate: date,
-  // }
 
   const handleAddBook = async (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log("From", e);
     await addBook({
       data: {
         title: name || "",
@@ -100,7 +87,7 @@ const From = ({ book, editMode }: FormProps) => {
         onSubmit={editMode ? handleEditBook : handleAddBook}
       >
         <div className="space-y-2">
-          <label for="mhr-bookName">Book Name</label>
+          <label>Book Name</label>
           <input
             required
             className="text-input"
@@ -113,7 +100,7 @@ const From = ({ book, editMode }: FormProps) => {
         </div>
 
         <div className="space-y-2">
-          <label for="mhr-author">Author</label>
+          <label>Author</label>
           <input
             required
             className="text-input"
@@ -138,21 +125,6 @@ const From = ({ book, editMode }: FormProps) => {
           />
         </div>
 
-        {/* <div className="flex items-center">
-          <input
-            id="mhr-featured"
-            onClick={() => setFeatured(!featured)}
-            checked={featured === true}
-            type="checkbox"
-            name="featured"
-            className="w-4 h-4"
-          />
-          <label for="mhr-featured" className="ml-2 text-sm">
-            {" "}
-            This is a featured book{" "}
-          </label>
-        </div> */}
-
         {editMode ? (
           <button type="submit" className="submit" id="mhr-submit">
             Update Book
@@ -165,7 +137,7 @@ const From = ({ book, editMode }: FormProps) => {
       </form>
       {isSuccess && <Success message="Book was added successfully" />}
       {isError ? <Error /> : null}
-      {/* {editSuccess && <Success message="Book was edited successfully" />} */}
+      {editSuccess && <Success message="Book was edited successfully" />}
     </div>
   );
 };
