@@ -4,7 +4,7 @@ export interface IBook {
   author: string;
   genre: string;
   publicationDate: string;
-  id: string;
+  id?: string;
 }
 
 interface BookState {

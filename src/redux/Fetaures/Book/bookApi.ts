@@ -1,9 +1,17 @@
+import { IBook } from "../AddNewBook/addNewBookSlice";
 import { api } from "../Api/apiSlice";
 
 const productApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "/books",
+    }),
+    addBook: builder.mutation({
+      query: ({ data }: { data: IBook }) => ({
+        url: "books/add-book",
+        method: "POST",
+        body: data,
+      }),
     }),
     // singleProduct: builder.query({
     //   query: (id) => `/product/${id}`,
@@ -26,6 +34,7 @@ const productApi = api.injectEndpoints({
 export const {
   //   useGetCommentQuery,
   useGetBooksQuery,
+  useAddBookMutation,
   //   usePostCommentMutation,
   //   useSingleProductQuery,
 } = productApi;

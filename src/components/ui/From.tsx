@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
+import { useAddBookMutation } from "../../redux/Fetaures/Book/bookApi";
+import Error from "./Error";
+import Success from "./Success";
 // import {
 //   useAddBookMutation,
 //   useEditBookMutation,
 // } from "../features/Api/apiSlice";
 
 interface FormProps {
-  book: any;
-  editMode: boolean;
+  book?: IBook;
+  editMode?: boolean;
 }
 
 const From = ({ book, editMode }: FormProps) => {
@@ -21,7 +25,7 @@ const From = ({ book, editMode }: FormProps) => {
   //     rating: initialRating,
   //     featured: initialFeatured,
   //   } = book || {};
-  //   const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
+  const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
   //   const [
   //     editBook,
   //     { isLoading: editLoading, isError: editError, isSuccess: editSuccess },
@@ -31,32 +35,44 @@ const From = ({ book, editMode }: FormProps) => {
   // State
   const [name, setName] = useState<string>();
   const [author, setAuthor] = useState<string>();
-  const [imgUrl, setImgUrl] = useState<string>();
-  const [price, setPrice] = useState<number>();
-  const [rating, setRating] = useState<number>();
-  const [featured, setFeatured] = useState<boolean>();
+  const [genre, setGenre] = useState<string>();
+  // const [price, setPrice] = useState<number>();
+  // const [rating, setRating] = useState<number>();
+  // const [featured, setFeatured] = useState<boolean>();
 
   const resetFrom = () => {
     setName("");
     setAuthor("");
-    setImgUrl("");
-    setPrice(0);
-    setRating(0);
-    setFeatured(false);
+    setGenre("");
+    // setPrice(0);
+    // setRating(0);
+    // setFeatured(false);
   };
 
-  const handleAddBook = (e) => {
-    // e.preventDefault();
-    // addBook({
-    //   name,
-    //   author,
-    //   thumbnail: imgUrl,
-    //   price,
-    //   rating,
-    //   featured,
-    // });
+  console.log("error", isError);
+
+  const date = new Date();
+  console.log(date);
+  // const submittedData = {
+  //   title: name,
+  //   author,
+  //   genre,
+  //   publicationDate: date,
+  // }
+
+  const handleAddBook = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // console.log("From", e);
+    await addBook({
+      data: {
+        title: name || "",
+        author: author || "",
+        genre: genre || "",
+        publicationDate: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+      },
+    });
     resetFrom();
-    navigate("/");
+    // navigate("/");
   };
   const handleEditBook = (e) => {
     // e.preventDefault();
@@ -108,49 +124,19 @@ const From = ({ book, editMode }: FormProps) => {
         </div>
 
         <div className="space-y-2">
-          <label for="mhr-thumbnail">Image Url</label>
+          <label>Genre</label>
           <input
             required
             className="text-input"
             type="text"
             id="mhr-thumbnail"
-            value={imgUrl}
-            onChange={(e) => setImgUrl(e.target.value)}
-            name="thumbnail"
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            name="genre"
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-8 pb-4">
-          <div className="space-y-2">
-            <label for="mhr-price">Price</label>
-            <input
-              required
-              className="text-input"
-              type="number"
-              id="mhr-price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              name="price"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label for="mhr-rating">Rating</label>
-            <input
-              required
-              className="text-input"
-              type="number"
-              id="mhr-rating"
-              value={rating}
-              onChange={(e) => setRating(Number(e.target.value))}
-              name="rating"
-              min="1"
-              max="5"
-            />
-          </div>
-        </div>
-
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <input
             id="mhr-featured"
             onClick={() => setFeatured(!featured)}
@@ -163,7 +149,7 @@ const From = ({ book, editMode }: FormProps) => {
             {" "}
             This is a featured book{" "}
           </label>
-        </div>
+        </div> */}
 
         {editMode ? (
           <button type="submit" className="submit" id="mhr-submit">
@@ -175,9 +161,9 @@ const From = ({ book, editMode }: FormProps) => {
           </button>
         )}
       </form>
-      {/* {isSuccess && <Success message="Video was added successfully" />}
-      {isError || editError ? <Error /> : null}
-      {editSuccess && <Success message="Video was edited successfully" />} */}
+      {isSuccess && <Success message="Book was added successfully" />}
+      {isError ? <Error /> : null}
+      {/* {editSuccess && <Success message="Book was edited successfully" />} */}
     </div>
   );
 };
