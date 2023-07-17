@@ -2,7 +2,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
-import { useAddBookMutation } from "../../redux/Fetaures/Book/bookApi";
+import {
+  useAddBookMutation,
+  useEditBookMutation,
+} from "../../redux/Fetaures/Book/bookApi";
 import Error from "./Error";
 import Success from "./Success";
 // import {
@@ -26,16 +29,16 @@ const From = ({ book, editMode }: FormProps) => {
   //     featured: initialFeatured,
   //   } = book || {};
   const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
-  //   const [
-  //     editBook,
-  //     { isLoading: editLoading, isError: editError, isSuccess: editSuccess },
-  //   ] = useEditBookMutation();
+  const [
+    editBook,
+    { isLoading: editLoading, isError: editError, isSuccess: editSuccess },
+  ] = useEditBookMutation();
   const navigate = useNavigate();
 
   // State
-  const [name, setName] = useState<string>();
-  const [author, setAuthor] = useState<string>();
-  const [genre, setGenre] = useState<string>();
+  const [name, setName] = useState<string>(book?.title || "");
+  const [author, setAuthor] = useState<string>(book?.author || "");
+  const [genre, setGenre] = useState<string>(book?.genre || "");
   // const [price, setPrice] = useState<number>();
   // const [rating, setRating] = useState<number>();
   // const [featured, setFeatured] = useState<boolean>();
@@ -74,19 +77,18 @@ const From = ({ book, editMode }: FormProps) => {
     resetFrom();
     // navigate("/");
   };
-  const handleEditBook = (e) => {
-    // e.preventDefault();
-    // editBook({
-    //   id,
-    //   data: {
-    //     name,
-    //     author,
-    //     thumbnail: imgUrl,
-    //     price,
-    //     rating,
-    //     featured,
-    //   },
-    // });
+  const handleEditBook = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await editBook({
+      id: book?.id || "",
+      data: {
+        title: name,
+        author,
+        genre,
+        id: book?.id || "",
+        publicationDate: book?.publicationDate || "",
+      },
+    });
     resetFrom();
     navigate("/");
   };

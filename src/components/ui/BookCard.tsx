@@ -53,7 +53,7 @@ const BookCard = ({ book }: { book: IBook }) => {
         </div>
 
         <div className="space-y-2 mt-4 h-full">
-          <Link to={`${id!}`}>
+          <Link to={`book/${id!}`}>
             <h4 className="mhr-book-name">name: {title}</h4>
           </Link>
           <p className="mhr-author">author: {author}</p>
