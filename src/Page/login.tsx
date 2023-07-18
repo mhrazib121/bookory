@@ -7,8 +7,6 @@ import CommonInput from "../components/ui/Common/CommonInput";
 import Error from "../components/ui/Error";
 import { useLoginMutation } from "../redux/Fetaures/Auth/authSlice";
 import { IErrorResponse, ILoginResponse } from "../types/Common";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
-import { SerializedError } from "@reduxjs/toolkit";
 
 const Login = () => {
   const [email, setEmail] = useState<string>();
@@ -35,7 +33,6 @@ const Login = () => {
     }
   }, [loginResponse, isSuccess, navigate]);
 
-  console.log(errorResponse, "error");
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full bg-white p-8 shadow-md">
