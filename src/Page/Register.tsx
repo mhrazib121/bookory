@@ -1,12 +1,34 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from "react";
 import CommonInput from "../components/ui/Common/CommonInput";
 import Button from "../components/ui/Common/Button";
+import { useSignUpMutation } from "../redux/Fetaures/Auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [lastName, setLastName] = useState<string>();
-  const [firstName, setFirstName] = useState<string>();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+
+  const [signUp] = useSignUpMutation();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await signUp({
+      data: {
+        email,
+        password,
+        name: {
+          firstName,
+          lastName,
+        },
+      },
+    });
+
+    navigate("/login");
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -19,7 +41,7 @@ const Register = () => {
           />
           <h2 className="mt-4 text-3xl text-center font-bold">Register</h2>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <CommonInput
             label="First Name"
             placeholder="Enter your first name"
