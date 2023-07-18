@@ -1,14 +1,29 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from "react";
 import CommonInput from "../components/ui/Common/CommonInput";
 import Button from "../components/ui/Common/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../redux/Fetaures/Auth/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
 
-  console.log("email", email);
-  console.log("pass", password);
+  const [login, { data }] = useLoginMutation();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await login({
+      data: {
+        email,
+        password,
+      },
+    });
+
+    // navigate("/");
+  };
+  console.log(data);
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full bg-white p-8 shadow-md">
@@ -20,7 +35,7 @@ const Login = () => {
           />
           <h2 className="mt-4 text-3xl text-center font-bold">Login</h2>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <CommonInput
             label="Email Address"
             placeholder="Enter your email address"
