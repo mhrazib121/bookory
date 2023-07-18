@@ -1,9 +1,12 @@
 import { useState } from "react";
 import CommonInput from "../components/ui/Common/CommonInput";
+import Button from "../components/ui/Common/Button";
 
 const Register = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [lastName, setLastName] = useState<string>();
+  const [firstName, setFirstName] = useState<string>();
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -17,71 +20,51 @@ const Register = () => {
           <h2 className="mt-4 text-3xl text-center font-bold">Register</h2>
         </div>
         <form>
-          <div className="mb-4">
-            <label
-              htmlFor="firstname"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              First Name
-            </label>
-            <input
-              type="text"
-              id="firstname"
-              className="w-full px-3 py-2 text-gray-700 border border-gray-400 rounded leading-tight focus:outline-none focus:border-blue-500"
-              placeholder="Enter your first name"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="lastname"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Last Name
-            </label>
-            <input
-              type="text"
-              id="lastname"
-              className="w-full px-3 py-2 text-gray-700 border border-gray-400 rounded leading-tight focus:outline-none focus:border-blue-500"
-              placeholder="Enter your last name"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full px-3 py-2 text-gray-700 border border-gray-400 rounded leading-tight focus:outline-none focus:border-blue-500"
-              placeholder="Enter your email address"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full px-3 py-2 text-gray-700 border border-gray-400 rounded leading-tight focus:outline-none focus:border-blue-500"
-              placeholder="Enter your password"
-            />
-          </div>
-          <div className="flex items-center justify-center">
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Register
-            </button>
+          <CommonInput
+            label="First Name"
+            placeholder="Enter your first name"
+            type="text"
+            key={1}
+            value={firstName}
+            handleOnChange={setFirstName}
+          />
+          <CommonInput
+            label="Last Name"
+            placeholder="Enter your last name"
+            type="text"
+            key={1}
+            value={lastName}
+            handleOnChange={setLastName}
+          />
+          <CommonInput
+            label="Email Address"
+            placeholder="Enter your email address"
+            type="email"
+            key={1}
+            value={email}
+            handleOnChange={setEmail}
+          />
+          <CommonInput
+            label="Password"
+            placeholder="Enter your password"
+            type="password"
+            key={2}
+            value={password}
+            handleOnChange={setPassword}
+          />
+          <div className="w-full bg-blue-700 hover:bg-blue-700 rounded-md flex flex-col items-center mb-12">
+            <Button label="Sign up" />
           </div>
         </form>
+        <a href="/login" className="text-sm flex gap-2 justify-center mb-6">
+          Already have an account?{" "}
+          <span className="text-blue-500 hover:text-blue-800"> Login</span>
+        </a>
+        <div className="flex justify-between">
+          <a href="/" className="text-sm text-blue-500 hover:text-blue-800">
+            Back to home
+          </a>
+        </div>
       </div>
     </div>
   );
