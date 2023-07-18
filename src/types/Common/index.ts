@@ -7,3 +7,26 @@ export interface IUser {
   };
   id?: string;
 }
+
+export interface ILoginResponse {
+  data: {
+    accessToken: string;
+  };
+  success: boolean;
+  message: string;
+  statusCode: number;
+}
+export interface IErrorResponse {
+  data: {
+    errorMessages: [
+      {
+        path: string;
+        message: string;
+      }
+    ];
+    message: string;
+    stack: string;
+    success: boolean;
+  };
+  status: number;
+}

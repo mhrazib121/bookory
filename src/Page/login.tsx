@@ -1,15 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState } from "react";
-import CommonInput from "../components/ui/Common/CommonInput";
-import Button from "../components/ui/Common/Button";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/ui/Common/Button";
+import CommonInput from "../components/ui/Common/CommonInput";
+import Error from "../components/ui/Error";
 import { useLoginMutation } from "../redux/Fetaures/Auth/authSlice";
+import { IErrorResponse, ILoginResponse } from "../types/Common";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+import { SerializedError } from "@reduxjs/toolkit";
 
 const Login = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
 
-  const [login, { data }] = useLoginMutation();
+  const [login, { isSuccess, isError, error, data }] = useLoginMutation();
+  const loginResponse: ILoginResponse = data;
+  const errorResponse = error as IErrorResponse;
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,13 +27,19 @@ const Login = () => {
         password,
       },
     });
-
-    // navigate("/");
   };
-  console.log(data);
+  useEffect(() => {
+    if (isSuccess) {
+      localStorage.setItem("accessToken", loginResponse.data.accessToken);
+      navigate("/");
+    }
+  }, [loginResponse, isSuccess, navigate]);
+
+  console.log(errorResponse, "error");
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full bg-white p-8 shadow-md">
+        {isError ? <Error message={errorResponse?.data?.message} /> : null}
         <div className="mb-6">
           <img
             src="/path/to/your/image.png"
