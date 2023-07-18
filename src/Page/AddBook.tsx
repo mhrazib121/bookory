@@ -1,4 +1,3 @@
-import React from "react";
 import From from "../components/ui/From";
 
 const AddNewBook = () => {

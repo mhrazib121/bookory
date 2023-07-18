@@ -7,7 +7,7 @@ import { IBook } from "../redux/Fetaures/AddNewBook/addNewBookSlice";
 
 const EditBook = () => {
   const params = useParams();
-  const { data, isLoading, isError } = useSingleBookQuery(params.id!);
+  const { data } = useSingleBookQuery(params.id!);
   const result: IBook = data?.data;
   return (
     <main className="py-6 2xl:px-6">

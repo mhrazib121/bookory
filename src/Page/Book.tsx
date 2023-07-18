@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { Link, useNavigate, useParams } from "react-router-dom";
+import bookImg from "../assets/book.jpg";
+import { IBook } from "../redux/Fetaures/AddNewBook/addNewBookSlice";
 import {
   useDeleteBookMutation,
   useSingleBookQuery,
 } from "../redux/Fetaures/Book/bookApi";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import bookImg from "../assets/book.jpg";
-import { IBook } from "../redux/Fetaures/AddNewBook/addNewBookSlice";
 
 const Book = () => {
   const navigate = useNavigate();
   const param = useParams();
-  const { data, isLoading, isError } = useSingleBookQuery(param.id!);
+  const { data } = useSingleBookQuery(param.id!);
   const [deleteBook] = useDeleteBookMutation();
   const result: IBook = data?.data;
 
@@ -66,7 +66,7 @@ const Book = () => {
                 </svg>
               </button>
             </Link>
-            <button className="mhr-deleteBook" onClick={handleDelete}>
+            <button className="mhr-deleteBook" onClick={() => handleDelete}>
               <svg
                 fill="none"
                 viewBox="0 0 24 24"

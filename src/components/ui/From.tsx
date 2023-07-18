@@ -15,11 +15,8 @@ interface FormProps {
 }
 
 const From = ({ book, editMode }: FormProps) => {
-  const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
-  const [
-    editBook,
-    { isLoading: editLoading, isError: editError, isSuccess: editSuccess },
-  ] = useEditBookMutation();
+  const [addBook, { isError, isSuccess }] = useAddBookMutation();
+  const [editBook, { isSuccess: editSuccess }] = useEditBookMutation();
   const navigate = useNavigate();
 
   // State
@@ -32,8 +29,6 @@ const From = ({ book, editMode }: FormProps) => {
     setAuthor("");
     setGenre("");
   };
-
-  console.log("error", isError);
 
   const date = new Date();
   console.log(date);
@@ -71,7 +66,9 @@ const From = ({ book, editMode }: FormProps) => {
     <div>
       <form
         className="book-form"
-        onSubmit={editMode ? handleEditBook : handleAddBook}
+        onSubmit={() => {
+          editMode ? handleEditBook : handleAddBook;
+        }}
       >
         <div className="space-y-2">
           <label>Book Name</label>
