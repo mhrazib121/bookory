@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CommonInput from "../components/ui/Common/CommonInput";
 import Button from "../components/ui/Common/Button";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState<string>();
@@ -41,10 +42,10 @@ const Login = () => {
             <Button label="Sign In" />
           </div>
         </form>
-        <a href="/register" className="text-sm flex gap-2 justify-center mb-6">
+        <Link to="/register" className="text-sm flex gap-2 justify-center mb-6">
           Don't have an account?{" "}
           <span className="text-blue-500 hover:text-blue-800"> Register</span>
-        </a>
+        </Link>
         <div className="flex justify-between">
           <a href="/" className="text-sm text-blue-500 hover:text-blue-800">
             Back to home
