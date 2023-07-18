@@ -17,7 +17,17 @@ const authApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    getProfile: builder.query({
+      query: (token: string) => ({
+        url: "/users/my-profile",
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useSignUpMutation, useLoginMutation } = authApi;
+export const { useSignUpMutation, useLoginMutation, useGetProfileQuery } =
+  authApi;

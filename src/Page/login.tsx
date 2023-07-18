@@ -5,7 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/ui/Common/Button";
 import CommonInput from "../components/ui/Common/CommonInput";
 import Error from "../components/ui/Error";
-import { useLoginMutation } from "../redux/Fetaures/Auth/authSlice";
+import {
+  useGetProfileQuery,
+  useLoginMutation,
+} from "../redux/Fetaures/Auth/authSlice";
 import { IErrorResponse, ILoginResponse } from "../types/Common";
 
 const Login = () => {
@@ -13,6 +16,9 @@ const Login = () => {
   const [password, setPassword] = useState<string>();
 
   const [login, { isSuccess, isError, error, data }] = useLoginMutation();
+  const fullToken = localStorage.getItem("accessToken");
+  const { data: profile } = useGetProfileQuery(fullToken as string);
+
   const loginResponse: ILoginResponse = data;
   const errorResponse = error as IErrorResponse;
   const navigate = useNavigate();
