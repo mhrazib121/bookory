@@ -41,6 +41,13 @@ const Navbar = () => {
                             placeholder="Filter books..." className="search" id="mhr-search" /> */}
           </div>
         </form>
+        <div>
+          <ul className="hidden md:flex items-center space-x-6">
+            <Link to="/login" className="cursor-pointer" id="mhr-addBook">
+              <li>Login</li>
+            </Link>
+          </ul>
+        </div>
       </div>
     </nav>
   );
