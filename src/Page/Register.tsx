@@ -4,6 +4,7 @@ import CommonInput from "../components/ui/Common/CommonInput";
 import Button from "../components/ui/Common/Button";
 import { useSignUpMutation } from "../redux/Fetaures/Auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import Logo from "../components/ui/Logo";
 
 const Register = () => {
   const [email, setEmail] = useState<string>("");
@@ -33,12 +34,8 @@ const Register = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full bg-white p-8 shadow-md">
-        <div className="mb-6">
-          <img
-            src="/path/to/your/image.png"
-            alt="Logo"
-            className="mx-auto h-12"
-          />
+        <div className="mb-6 flex flex-col items-center">
+          <Logo />
           <h2 className="mt-4 text-3xl text-center font-bold">Register</h2>
         </div>
         <form onSubmit={handleSubmit}>

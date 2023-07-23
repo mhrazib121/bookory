@@ -10,6 +10,7 @@ import {
   useLoginMutation,
 } from "../redux/Fetaures/Auth/authSlice";
 import { IErrorResponse, ILoginResponse } from "../types/Common";
+import Logo from "../components/ui/Logo";
 
 const Login = () => {
   const [email, setEmail] = useState<string>();
@@ -43,12 +44,8 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full bg-white p-8 shadow-md">
         {isError ? <Error message={errorResponse?.data?.message} /> : null}
-        <div className="mb-6">
-          <img
-            src="/path/to/your/image.png"
-            alt="Logo"
-            className="mx-auto h-12"
-          />
+        <div className="mb-6 flex flex-col items-center">
+          <Logo />
           <h2 className="mt-4 text-3xl text-center font-bold">Login</h2>
         </div>
         <form onSubmit={handleSubmit}>
