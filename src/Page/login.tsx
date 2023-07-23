@@ -19,6 +19,7 @@ const Login = () => {
   const [login, { isSuccess, isError, error, data }] = useLoginMutation();
   const fullToken = localStorage.getItem("accessToken");
   const { data: profile } = useGetProfileQuery(fullToken as string);
+  console.log(profile);
 
   const loginResponse: ILoginResponse = data;
   const errorResponse = error as IErrorResponse;
