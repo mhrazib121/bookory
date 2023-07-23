@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +32,6 @@ const From = ({ book, editMode }: FormProps) => {
   };
 
   const date = new Date();
-  console.log(date);
 
   const handleAddBook = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ const From = ({ book, editMode }: FormProps) => {
       },
     });
     resetFrom();
-    // navigate("/");
+    navigate("/");
   };
   const handleEditBook = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,9 +66,7 @@ const From = ({ book, editMode }: FormProps) => {
     <div>
       <form
         className="book-form"
-        onSubmit={() => {
-          editMode ? handleEditBook : handleAddBook;
-        }}
+        onSubmit={editMode ? handleEditBook : handleAddBook}
       >
         <div className="space-y-2">
           <label>Book Name</label>

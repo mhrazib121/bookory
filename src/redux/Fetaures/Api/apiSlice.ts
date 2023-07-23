@@ -6,6 +6,6 @@ export const api = createApi({
     // baseUrl: "http://localhost:5000/api/v1",
     baseUrl: "https://bookory-server-gamma.vercel.app/api/v1",
   }),
-  tagTypes: ["comments"],
+  tagTypes: ["books", "book"],
   endpoints: () => ({}),
 });

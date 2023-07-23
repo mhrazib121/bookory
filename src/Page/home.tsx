@@ -9,7 +9,6 @@ import { useGetBooksQuery } from "../redux/Fetaures/Book/bookApi";
 
 const Home = () => {
   const { data, isLoading, isError } = useGetBooksQuery(undefined);
-  console.log("books", data);
   let content = null;
 
   if (isLoading) {

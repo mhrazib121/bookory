@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -11,15 +12,17 @@ import {
 const Book = () => {
   const navigate = useNavigate();
   const param = useParams();
+  console.log("idddddd", param.id);
   const { data } = useSingleBookQuery(param.id!);
   const [deleteBook] = useDeleteBookMutation();
   const result: IBook = data?.data;
 
-  const handleDelete = async () => {
+  const handleDelete = async (): Promise<void> => {
     await deleteBook(result?.id || "");
     console.log("object");
     navigate("/");
   };
+
   return (
     <div className="container mx-auto py-8">
       <div className="grid grid-cols-2 gap-8">
@@ -66,7 +69,7 @@ const Book = () => {
                 </svg>
               </button>
             </Link>
-            <button className="mhr-deleteBook" onClick={() => handleDelete}>
+            <button className="mhr-deleteBook" onClick={() => handleDelete()}>
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
