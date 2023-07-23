@@ -25,7 +25,10 @@ const productApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["book"],
+      invalidatesTags: (result, error, arg) => [
+        "books",
+        { type: "book", id: arg?.id },
+      ],
     }),
     deleteBook: builder.mutation({
       query: (id: string) => ({
