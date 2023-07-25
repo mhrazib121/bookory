@@ -1,3 +1,4 @@
+import { IProfileResponse } from "../../../types/Auth";
 import { IUser } from "../../../types/Common";
 import { api } from "../Api/apiSlice";
 
@@ -17,7 +18,7 @@ const authApi = api.injectEndpoints({
         body: data,
       }),
     }),
-    getProfile: builder.query({
+    getProfile: builder.query<IProfileResponse, string>({
       query: (token: string) => ({
         url: "/users/my-profile",
         method: "GET",
