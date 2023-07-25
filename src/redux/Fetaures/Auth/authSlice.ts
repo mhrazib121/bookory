@@ -17,6 +17,7 @@ const authApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["token"],
     }),
     getProfile: builder.query<IProfileResponse, string>({
       query: (token: string) => ({
@@ -26,6 +27,7 @@ const authApi = api.injectEndpoints({
           Authorization: token,
         },
       }),
+      providesTags: ["token"],
     }),
   }),
 });

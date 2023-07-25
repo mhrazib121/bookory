@@ -1,7 +1,20 @@
+import { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import { IProfileResponse } from "../types/Auth";
 
-const ProfileDropdown = ({ data }: { data: IProfileResponse }) => {
+const ProfileDropdown = ({
+  data,
+  setOpenProfile,
+}: {
+  data: IProfileResponse;
+  setOpenProfile: Dispatch<SetStateAction<boolean | undefined>>;
+}) => {
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setOpenProfile(false);
+    window.location.reload();
+  };
+
   return (
     <div className="absolute -left-20 mt-2 mr-2 w-[150px]">
       <ul className=" p-3 bg-white shadow-md rounded-md">
@@ -15,9 +28,14 @@ const ProfileDropdown = ({ data }: { data: IProfileResponse }) => {
         <Link to="/">
           <li className="p-1">Profile</li>
         </Link>
-        <Link to="/">
-          <li className="p-1">Logout</li>
+        <Link to="/add-book" className="cursor-pointer" id="mhr-addBook">
+          <li className="p-1">Add Book</li>
         </Link>
+        <>
+          <li className="p-1 cursor-pointer" onClick={() => handleLogout()}>
+            Logout
+          </li>
+        </>
       </ul>
     </div>
   );

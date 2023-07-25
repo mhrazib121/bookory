@@ -18,13 +18,13 @@ const Navbar = () => {
         <ul className="hidden md:flex items-center space-x-6">
           <a
             className="font-semibold cursor-pointer"
-            href="index.html"
+            href="/"
             id="mhr-bookStore"
           >
-            <li>Book Store</li>
+            <li>Home</li>
           </a>
-          <Link to="/add-book" className="cursor-pointer" id="mhr-addBook">
-            <li>Add Book</li>
+          <Link to="/" className="cursor-pointer" id="mhr-addBook">
+            <li>All Book</li>
           </Link>
         </ul>
 
@@ -38,7 +38,12 @@ const Navbar = () => {
                   src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt=""
                 />
-                {openProfile && <ProfileDropdown data={data} />}
+                {openProfile && (
+                  <ProfileDropdown
+                    setOpenProfile={setOpenProfile}
+                    data={data}
+                  />
+                )}
               </div>
             ) : (
               <Link to="/login" className="cursor-pointer" id="mhr-addBook">
