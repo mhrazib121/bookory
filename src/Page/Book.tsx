@@ -8,19 +8,24 @@ import {
   useDeleteBookMutation,
   useSingleBookQuery,
 } from "../redux/Fetaures/Book/bookApi";
+import useProfile from "../hooks/userProfile";
 
 const Book = () => {
   const navigate = useNavigate();
   const param = useParams();
-  console.log("idddddd", param.id);
   const { data } = useSingleBookQuery(param.id!);
   const [deleteBook] = useDeleteBookMutation();
   const result: IBook = data?.data;
+  const { profile } = useProfile();
 
   const handleDelete = async (): Promise<void> => {
-    await deleteBook(result?.id || "");
-    console.log("object");
-    navigate("/");
+    if (profile) {
+      await deleteBook(result?.id || "");
+      console.log("object");
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -52,7 +57,11 @@ const Book = () => {
             recusandae officia dolores cupiditate.
           </p>
           <div className="text-gray-500 space-x-4">
-            <Link to={`/edit-book/${result?.id ? result.id : ""}`}>
+            <Link
+              to={
+                profile ? `/edit-book/${result?.id ? result.id : ""}` : "/login"
+              }
+            >
               <button className="mhr-edit mt-8">
                 <svg
                   fill="none"

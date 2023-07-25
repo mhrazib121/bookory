@@ -8,7 +8,6 @@ const Navbar = () => {
   const [openProfile, setOpenProfile] = useState<boolean>();
   const token: string | null = localStorage.getItem("accessToken");
   const { data } = useGetProfileQuery(token as string);
-  console.log("profile", data);
 
   return (
     <nav className="py-4 2xl:px-6">
