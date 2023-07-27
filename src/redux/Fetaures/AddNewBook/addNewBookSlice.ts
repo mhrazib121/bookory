@@ -4,6 +4,15 @@ export interface IBook {
   author: string;
   genre: string;
   publicationDate: string;
+  publisherEmail: string;
+  imgUrl: string;
+  reviews: [
+    {
+      name?: string;
+      email?: string;
+      message?: string;
+    }
+  ];
   id?: string;
 }
 

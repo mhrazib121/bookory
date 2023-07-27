@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import useProfile from "../../hooks/useProfile";
 import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
 import {
   useAddBookMutation,
@@ -9,21 +11,24 @@ import {
 } from "../../redux/Fetaures/Book/bookApi";
 import Error from "./Error";
 import Success from "./Success";
-
 interface FormProps {
   book?: IBook;
   editMode?: boolean;
 }
 
 const From = ({ book, editMode }: FormProps) => {
+  const { profile } = useProfile();
   const [addBook, { isError, isSuccess }] = useAddBookMutation();
   const [editBook, { isSuccess: editSuccess }] = useEditBookMutation();
   const navigate = useNavigate();
+
+  // console.log("profile", profile);
 
   // State
   const [name, setName] = useState<string>(book?.title || "");
   const [author, setAuthor] = useState<string>(book?.author || "");
   const [genre, setGenre] = useState<string>(book?.genre || "");
+  const [imgUrl, setImgUrl] = useState<string>(book?.imgUrl || "");
 
   const resetFrom = () => {
     setName("");
@@ -35,16 +40,33 @@ const From = ({ book, editMode }: FormProps) => {
 
   const handleAddBook = async (e: React.FormEvent) => {
     e.preventDefault();
-    await addBook({
-      data: {
-        title: name || "",
-        author: author || "",
-        genre: genre || "",
-        publicationDate: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
-      },
-    });
-    resetFrom();
-    navigate("/");
+    try {
+      const result = await addBook({
+        data: {
+          title: name || "",
+          author: author || "",
+          genre: genre || "",
+          publisherEmail: profile?.data.getProfile.email || "",
+          imgUrl,
+          reviews: [{ name: "", email: "" }],
+          publicationDate: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+        },
+      }).then((res) => {
+        console.log(res);
+        if (res?.data?.statusCode === 200) {
+          toast.success(`${res?.data?.message}`);
+          navigate("/");
+        }
+        if (res.error.status === 400) {
+          console.log(res);
+          toast.error(`${res?.error?.data.message}`);
+        }
+      });
+
+      resetFrom();
+    } catch (error) {
+      console.log(error, "error");
+    }
   };
   const handleEditBook = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,10 +122,22 @@ const From = ({ book, editMode }: FormProps) => {
             required
             className="text-input"
             type="text"
-            id="mhr-thumbnail"
+            // id="mhr-thumbnail"
             value={genre}
             onChange={(e) => setGenre(e.target.value)}
             name="genre"
+          />
+        </div>
+        <div className="space-y-2">
+          <label>Image URL</label>
+          <input
+            // required
+            className="text-input"
+            type="text"
+            // id="mhr-thumbnail"
+            value={imgUrl}
+            onChange={(e) => setImgUrl(e.target.value)}
+            name="imgUrl"
           />
         </div>
 

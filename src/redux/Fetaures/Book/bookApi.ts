@@ -1,5 +1,8 @@
+import { FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+import { IBookErrorResponse, IBookResponse } from "../../../types/Book";
 import { IBook } from "../AddNewBook/addNewBookSlice";
 import { api } from "../Api/apiSlice";
+import { SerializedError } from "@reduxjs/toolkit";
 
 const productApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,7 +10,10 @@ const productApi = api.injectEndpoints({
       query: () => "/books",
       providesTags: ["books"],
     }),
-    addBook: builder.mutation({
+    addBook: builder.mutation<
+      IBookResponse | IBookErrorResponse | SerializedError,
+      { data: IBook }
+    >({
       query: ({ data }: { data: IBook }) => ({
         url: "/books/add-book",
         method: "POST",

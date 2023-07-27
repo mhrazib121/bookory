@@ -8,7 +8,7 @@ import {
   useDeleteBookMutation,
   useSingleBookQuery,
 } from "../redux/Fetaures/Book/bookApi";
-import useProfile from "../hooks/userProfile";
+import useProfile from "../hooks/useProfile";
 
 const Book = () => {
   const navigate = useNavigate();
