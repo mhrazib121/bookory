@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useProfile from "../../hooks/useProfile";
@@ -19,10 +20,9 @@ interface FormProps {
 const From = ({ book, editMode }: FormProps) => {
   const { profile } = useProfile();
   const [addBook, { isError, isSuccess }] = useAddBookMutation();
-  const [editBook, { isSuccess: editSuccess }] = useEditBookMutation();
+  const [editBook, { isSuccess: editSuccess, isError: isEditError }] =
+    useEditBookMutation();
   const navigate = useNavigate();
-
-  // console.log("profile", profile);
 
   // State
   const [name, setName] = useState<string>(book?.title || "");
@@ -41,7 +41,7 @@ const From = ({ book, editMode }: FormProps) => {
   const handleAddBook = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const result = await addBook({
+      await addBook({
         data: {
           title: name || "",
           author: author || "",
@@ -51,16 +51,6 @@ const From = ({ book, editMode }: FormProps) => {
           reviews: [{ name: "", email: "" }],
           publicationDate: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
         },
-      }).then((res) => {
-        console.log(res);
-        if (res?.data?.statusCode === 200) {
-          toast.success(`${res?.data?.message}`);
-          navigate("/");
-        }
-        if (res.error.status === 400) {
-          console.log(res);
-          toast.error(`${res?.error?.data.message}`);
-        }
       });
 
       resetFrom();
@@ -68,6 +58,7 @@ const From = ({ book, editMode }: FormProps) => {
       console.log(error, "error");
     }
   };
+
   const handleEditBook = async (e: React.FormEvent) => {
     e.preventDefault();
     await editBook({
@@ -78,11 +69,26 @@ const From = ({ book, editMode }: FormProps) => {
         genre,
         id: book?.id || "",
         publicationDate: book?.publicationDate || "",
+        publisherEmail: book?.publisherEmail || "",
+        imgUrl,
+        reviews: book?.reviews || [{}],
       },
     });
     resetFrom();
     navigate("/");
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Book added successfully");
+    }
+    if (editSuccess) {
+      toast.success("Book edited successfully");
+    }
+    if (isError || isEditError) {
+      toast.error("Something wrong! try again");
+    }
+  }, [isError, isSuccess, isEditError, editSuccess]);
 
   return (
     <div>

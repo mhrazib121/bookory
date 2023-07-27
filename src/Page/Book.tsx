@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -9,6 +8,8 @@ import {
   useSingleBookQuery,
 } from "../redux/Fetaures/Book/bookApi";
 import useProfile from "../hooks/useProfile";
+import ReviewBox from "../components/ReviewBox";
+import ReviewMessage from "../components/ReviewBox/ReviewMessage";
 
 const Book = () => {
   const navigate = useNavigate();
@@ -95,6 +96,12 @@ const Book = () => {
             </button>
           </div>
         </div>
+      </div>
+      <hr />
+      <ReviewBox id={param.id!} />
+      <div>
+        {result?.reviews.length > 1 &&
+          result?.reviews.map((review) => <ReviewMessage review={review} />)}
       </div>
     </div>
   );

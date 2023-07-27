@@ -4,5 +4,6 @@ import linkedin from "./linkedin.svg";
 import twitter from "./twitter.svg";
 import whatsapp from "./whatsapp.svg";
 import youtube from "./youtube.svg";
+import send from "./send.svg";
 
-export { facebook, instagram, linkedin, twitter, whatsapp, youtube };
+export { facebook, instagram, linkedin, twitter, whatsapp, youtube, send };

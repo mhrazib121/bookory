@@ -3,6 +3,7 @@ import { IBookErrorResponse, IBookResponse } from "../../../types/Book";
 import { IBook } from "../AddNewBook/addNewBookSlice";
 import { api } from "../Api/apiSlice";
 import { SerializedError } from "@reduxjs/toolkit";
+import { IReview } from "../../../types/Common";
 
 const productApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -40,6 +41,17 @@ const productApi = api.injectEndpoints({
       }),
       invalidatesTags: ["books", "book"],
     }),
+    addReview: builder.mutation({
+      query: ({ id, data }: { id: string; data: IReview }) => ({
+        url: `/review/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result, error, arg) => [
+        "books",
+        { type: "book", id: arg.id },
+      ],
+    }),
   }),
 });
 
@@ -49,4 +61,5 @@ export const {
   useSingleBookQuery,
   useEditBookMutation,
   useDeleteBookMutation,
+  useAddReviewMutation,
 } = productApi;

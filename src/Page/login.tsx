@@ -67,7 +67,7 @@ const Login = () => {
             handleOnChange={setPassword}
           />
 
-          <div className="w-full bg-blue-700 hover:bg-blue-700 rounded-md flex flex-col items-center mb-12">
+          <div className="w-full bg-blue-700 hover:bg-blue-500 rounded-md flex flex-col items-center mb-12">
             <Button label="Sign In" />
           </div>
         </form>

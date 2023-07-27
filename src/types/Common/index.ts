@@ -30,3 +30,9 @@ export interface IErrorResponse {
   };
   status: number;
 }
+
+export interface IReview {
+  name?: string;
+  email?: string;
+  message?: string;
+}
