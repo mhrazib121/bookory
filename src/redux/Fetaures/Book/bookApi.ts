@@ -24,7 +24,7 @@ const productApi = api.injectEndpoints({
     }),
     singleBook: builder.query({
       query: (id: string) => `/books/${id}`,
-      // providesTags: (result, error, arg) => [{ type: "book", id: arg }],
+      providesTags: ["book"],
     }),
     editBook: builder.mutation({
       query: ({ id, data }: { id: string; data: IBook }) => ({
@@ -47,10 +47,7 @@ const productApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => [
-        "books",
-        { type: "book", id: arg.id },
-      ],
+      invalidatesTags: ["book"],
     }),
   }),
 });

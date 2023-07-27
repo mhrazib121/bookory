@@ -9,7 +9,6 @@ import {
 } from "../redux/Fetaures/Book/bookApi";
 import useProfile from "../hooks/useProfile";
 import ReviewBox from "../components/ReviewBox";
-import ReviewMessage from "../components/ReviewBox/ReviewMessage";
 
 const Book = () => {
   const navigate = useNavigate();
@@ -98,11 +97,7 @@ const Book = () => {
         </div>
       </div>
       <hr />
-      <ReviewBox id={param.id!} />
-      <div>
-        {result?.reviews.length > 1 &&
-          result?.reviews.map((review) => <ReviewMessage review={review} />)}
-      </div>
+      <ReviewBox id={param.id!} data={result} />
     </div>
   );
 };
