@@ -25,6 +25,13 @@ const Navbar = () => {
           <Link to="/" className="cursor-pointer" id="mhr-addBook">
             <li>All Book</li>
           </Link>
+          <Link
+            to={`${data?.data.email ? "/whitelist" : "/login"}`}
+            className="cursor-pointer"
+            id="mhr-addBook"
+          >
+            <li>Whitelist</li>
+          </Link>
         </ul>
 
         <div>

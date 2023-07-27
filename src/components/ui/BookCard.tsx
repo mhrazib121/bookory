@@ -1,15 +1,36 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Link } from "react-router-dom";
+import useProfile from "../../hooks/useProfile";
 import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
-// import { useDeleteBookMutation } from "../features/Api/apiSlice";
-import bookImg from "../../assets/book.jpg";
+import { useAddWhiteListMutation } from "../../redux/Fetaures/Whitelist/whitelistApi";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const BookCard = ({ book }: { book: IBook }) => {
   const { author, genre, publicationDate, title, id } = book;
+  const [addWhitelist, { isSuccess, isError }] = useAddWhiteListMutation();
+  const { profile } = useProfile();
+
+  console.log("object book", book);
+
+  const handleWhitelist = async () => {
+    await addWhitelist({
+      data: { email: profile?.data?.email || "", data: book },
+    });
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Added to Whitelist");
+    }
+    if (isError) {
+      toast.error("Something wrong");
+    }
+  }, [isSuccess, isError]);
   return (
     <div className="book-card">
       <img
         className="h-[240px] w-[170px] object-cover"
-        src={bookImg}
+        src={book.imgUrl}
         alt="book"
       />
       <div className="flex-1 h-full pr-2 pt-2 flex flex-col">
@@ -17,7 +38,7 @@ const BookCard = ({ book }: { book: IBook }) => {
           <span className="mhr-badge">featured</span>
           {/* {featured ? <span className="mhr-badge">featured</span> : <span />} */}
           <div className="text-gray-500 space-x-2">
-            <button className="mhr-whitelist">
+            <button className="mhr-whitelist" onClick={() => handleWhitelist()}>
               <svg
                 width="21"
                 height="21"
@@ -36,7 +57,7 @@ const BookCard = ({ book }: { book: IBook }) => {
 
         <div className="space-y-2 mt-4 h-full">
           <Link to={`book/${id!}`}>
-            <h4 className="mhr-book-name">name: {title}</h4>
+            <h4 className="mhr-book-name">{title}</h4>
           </Link>
           <p className="mhr-author">author: {author}</p>
           <p className="mhr-author">Genre: {genre}</p>
@@ -66,7 +87,7 @@ const BookCard = ({ book }: { book: IBook }) => {
               />
             </svg>
           </div>
-          <p className="mhr-price">BDT price</p>
+          {/* <p className="mhr-price">BDT price</p> */}
         </div>
       </div>
     </div>

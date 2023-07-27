@@ -7,6 +7,7 @@ import AddNewBook from "../Page/AddBook";
 import Book from "../Page/Book";
 import EditBook from "../Page/EditBook";
 import Register from "../Page/Register";
+import Whitelist from "../Page/Whitelist";
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const routes = createBrowserRouter([
       {
         path: "add-book",
         element: <AddNewBook />,
+      },
+      {
+        path: "whitelist",
+        element: <Whitelist />,
       },
       {
         path: "book/:id",

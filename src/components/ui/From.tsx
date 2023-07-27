@@ -46,7 +46,7 @@ const From = ({ book, editMode }: FormProps) => {
           title: name || "",
           author: author || "",
           genre: genre || "",
-          publisherEmail: profile?.data.getProfile.email || "",
+          publisherEmail: profile?.data.email || "",
           imgUrl,
           reviews: [{ name: "", email: "" }],
           publicationDate: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,

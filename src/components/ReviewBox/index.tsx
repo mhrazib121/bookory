@@ -14,7 +14,7 @@ const ReviewBox = ({ id, data }: { id: string; data: IBook }) => {
   const { profile } = useProfile();
   const handleSubmit = async () => {
     const reviewExist = data.reviews.filter(
-      (p) => p.email === profile?.data.getProfile.email
+      (p) => p.email === profile?.data?.email
     );
     if (reviewExist) {
       toast.warning("Already you given your review");
@@ -23,9 +23,9 @@ const ReviewBox = ({ id, data }: { id: string; data: IBook }) => {
       await addReview({
         id: id,
         data: {
-          email: profile?.data.getProfile.email || "",
-          name: `${profile?.data.getProfile.name.firstName || ""} ${
-            profile?.data.getProfile.name.lastName || ""
+          email: profile?.data?.email || "",
+          name: `${profile?.data?.name.firstName || ""} ${
+            profile?.data?.name.lastName || ""
           }`,
           message,
         },
