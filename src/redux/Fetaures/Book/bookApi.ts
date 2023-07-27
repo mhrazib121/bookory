@@ -1,4 +1,3 @@
-import { FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { IBookErrorResponse, IBookResponse } from "../../../types/Book";
 import { IBook } from "../AddNewBook/addNewBookSlice";
 import { api } from "../Api/apiSlice";
