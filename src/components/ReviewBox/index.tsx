@@ -60,7 +60,7 @@ const ReviewBox = ({ id, data }: { id: string; data: IBook }) => {
         </div>
       </div>
       <div>
-        {data?.reviews.length > 1 &&
+        {data?.reviews?.length > 1 &&
           data?.reviews
             .slice(1)
             .map((review) => <ReviewMessage review={review} />)}

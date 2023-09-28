@@ -21,7 +21,7 @@ const productApi = api.injectEndpoints({
       }),
       invalidatesTags: ["books", "book"],
     }),
-    singleBook: builder.query({
+    singleBook: builder.query<{ data: IBook }, string>({
       query: (id: string) => `/books/${id}`,
       providesTags: ["book"],
     }),

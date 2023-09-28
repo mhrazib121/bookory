@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../components/ui/Logo";
-import { useGetProfileQuery } from "../redux/Fetaures/Auth/authSlice";
 import ProfileDropdown from "./ProfileDropdown";
+import useProfile from "../hooks/useProfile";
 
 const Navbar = () => {
   const [openProfile, setOpenProfile] = useState<boolean>();
-  const token: string | null = localStorage.getItem("accessToken");
-  const { data } = useGetProfileQuery(token as string);
+  const { profile } = useProfile();
 
   return (
     <nav className="py-4 2xl:px-6">
@@ -26,7 +25,7 @@ const Navbar = () => {
             <li>All Book</li>
           </Link>
           <Link
-            to={`${data?.data.email ? "/whitelist" : "/login"}`}
+            to={`${profile?.data?.email ? "/whitelist" : "/login"}`}
             className="cursor-pointer"
             id="mhr-addBook"
           >
@@ -36,7 +35,7 @@ const Navbar = () => {
 
         <div>
           <ul className="hidden md:flex items-center space-x-6">
-            {data?.success === true ? (
+            {profile?.success === true ? (
               <div className="relative">
                 <img
                   onClick={() => setOpenProfile(!openProfile)}
@@ -47,7 +46,7 @@ const Navbar = () => {
                 {openProfile && (
                   <ProfileDropdown
                     setOpenProfile={setOpenProfile}
-                    data={data}
+                    data={profile}
                   />
                 )}
               </div>

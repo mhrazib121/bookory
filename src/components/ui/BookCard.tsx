@@ -11,13 +11,12 @@ const BookCard = ({ book }: { book: IBook }) => {
   const [addWhitelist, { isSuccess, isError }] = useAddWhiteListMutation();
   const { profile } = useProfile();
 
-  console.log("object book", book);
-
   const handleWhitelist = async () => {
     await addWhitelist({
       data: { email: profile?.data?.email || "", data: book },
     });
   };
+  console.log(book);
   useEffect(() => {
     if (isSuccess) {
       toast.success("Added to Whitelist");

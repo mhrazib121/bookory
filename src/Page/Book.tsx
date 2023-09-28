@@ -16,13 +16,12 @@ const Book = () => {
   const param = useParams();
   const { data } = useSingleBookQuery(param.id!);
   const [deleteBook] = useDeleteBookMutation();
-  const result: IBook = data?.data;
+  const result = data?.data;
   const { profile } = useProfile();
 
   const handleDelete = async (): Promise<void> => {
     if (profile) {
       await deleteBook(result?.id || "");
-      console.log("object");
       navigate("/");
     } else {
       navigate("/login");
@@ -57,7 +56,7 @@ const Book = () => {
             numquam dignissimos, ad eos assumenda consequuntur commodi
             recusandae officia dolores cupiditate.
           </p>
-          {profile?.data?.email === result?.publisherEmail && (
+          {profile?.data?.email === result?.email && (
             <div className="text-gray-500 space-x-4">
               <Link
                 to={
@@ -102,7 +101,7 @@ const Book = () => {
         </div>
       </div>
       <hr />
-      <ReviewBox id={param.id!} data={result} />
+      <ReviewBox id={param.id!} data={result!} />
     </div>
   );
 };
