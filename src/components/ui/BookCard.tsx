@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import useProfile from "../../hooks/useProfile";
 import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
-import { useAddWhiteListMutation } from "../../redux/Fetaures/Whitelist/whitelistApi";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { useAddWishListMutation } from "../../redux/Fetaures/Whitelist/wishlistApi";
 
 const BookCard = ({ book }: { book: IBook }) => {
   const { author, genre, publicationDate, title, id } = book;
-  const [addWhitelist, { isSuccess, isError }] = useAddWhiteListMutation();
+  const [addWhitelist, { isSuccess, isError }] = useAddWishListMutation();
   const { profile } = useProfile();
 
   const handleWhitelist = async () => {

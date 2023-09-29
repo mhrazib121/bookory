@@ -3,19 +3,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useProfile from "../../hooks/useProfile";
-import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
 import { useAddBookMutation } from "../../redux/Fetaures/Book/bookApi";
 import CommonInput from "./Common/CommonInput";
 import Error from "./Error";
 import Success from "./Success";
-interface FormProps {
-  book?: IBook;
-  editMode?: boolean;
-}
 
 const Form = () => {
   const { profile } = useProfile();
-  const [addBook, { isError, isSuccess, data }] = useAddBookMutation();
+  const [addBook, { isError, isSuccess }] = useAddBookMutation();
   const navigate = useNavigate();
 
   // State
@@ -33,14 +28,9 @@ const Form = () => {
     setPublicationDate("");
   };
 
-  const date = new Date();
-  // `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-  console.log(isError);
-
   const handleAddBook = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const response = await addBook({
+    await addBook({
       data: {
         title: name || "",
         author: author || "",
@@ -51,22 +41,18 @@ const Form = () => {
         publicationDate: publicationDate || "",
       },
     });
-
-    if (response.data && response.data.statusCode === 200) {
-      navigate("/");
-    }
-
     resetFrom();
   };
 
   useEffect(() => {
     if (isSuccess) {
       toast.success("Book added successfully");
+      navigate("/");
     }
     if (isError) {
       toast.error("Something wrong! try again");
     }
-  }, [isError, isSuccess]);
+  }, [isError, isSuccess, navigate]);
 
   return (
     <div>

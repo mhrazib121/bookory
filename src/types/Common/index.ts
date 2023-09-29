@@ -39,11 +39,11 @@ export interface IReview {
   message?: string;
 }
 
-export type IWhitelist = {
+export type IWishList = {
   email: string;
   data: IBook;
 };
-export interface IWhitelistResponse {
+export interface IWishListResponse {
   data: [
     {
       email: string;
