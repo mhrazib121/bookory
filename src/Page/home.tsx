@@ -8,7 +8,7 @@ import { IBook } from "../redux/Fetaures/AddNewBook/addNewBookSlice";
 import { useGetBooksQuery } from "../redux/Fetaures/Book/bookApi";
 
 const Home = () => {
-  const { data, isLoading, isError } = useGetBooksQuery(undefined);
+  const { data, isLoading, isError } = useGetBooksQuery({});
   let content = null;
 
   if (isLoading) {
@@ -23,7 +23,7 @@ const Home = () => {
   if (!isLoading && isError) {
     content = <Error />;
   }
-  if (!isLoading && !isError && data?.data.length > 0) {
+  if (!isLoading && !isError && data && data?.data?.length > 0) {
     content = (
       <>
         {data?.data?.map((book: IBook) => (

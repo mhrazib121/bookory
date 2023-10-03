@@ -1,4 +1,9 @@
-import { IBookErrorResponse, IBookResponse } from "../../../types/Book";
+import {
+  IBookErrorResponse,
+  IBookResponse,
+  IBooksQuery,
+  IBooksResponse,
+} from "../../../types/Book";
 import { IBook } from "../AddNewBook/addNewBookSlice";
 import { api } from "../Api/apiSlice";
 import { SerializedError } from "@reduxjs/toolkit";
@@ -6,8 +11,23 @@ import { IReview } from "../../../types/Common";
 
 const productApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getBooks: builder.query({
-      query: () => "/books",
+    getBooks: builder.query<IBooksResponse, IBooksQuery>({
+      query: ({ genre, publicationDate, searchText }: IBooksQuery) => {
+        let booksQuery = "/books/?";
+
+        if (searchText && searchText.length > 0) {
+          booksQuery += `&searchText=${searchText}`;
+        }
+        if (publicationDate && publicationDate.length > 0) {
+          booksQuery += `&publicationDate=${publicationDate}`;
+        }
+        if (genre && genre.length > 0) {
+          booksQuery += `&genre=${genre}`;
+        }
+
+        return booksQuery;
+        console.log(booksQuery);
+      },
       providesTags: ["books"],
     }),
     addBook: builder.mutation<

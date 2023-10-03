@@ -16,7 +16,6 @@ const BookCard = ({ book }: { book: IBook }) => {
       data: { email: profile?.data?.email || "", data: book },
     });
   };
-  console.log(book);
   useEffect(() => {
     if (isSuccess) {
       toast.success("Added to Whitelist");
