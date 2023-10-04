@@ -1,18 +1,40 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import useProfile from "../../hooks/useProfile";
 import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
-import { useAddWishListMutation } from "../../redux/Fetaures/Whitelist/wishlistApi";
+import {
+  useAddWishListMutation,
+  useGetWishListQuery,
+  useRemoveWishlistMutation,
+} from "../../redux/Fetaures/Whitelist/wishlistApi";
 
 const BookCard = ({ book }: { book: IBook }) => {
   const { author, genre, publicationDate, title, id } = book;
-  const [addWhitelist, { isSuccess, isError }] = useAddWishListMutation();
+
+  // profile data
   const { profile } = useProfile();
 
-  const handleWhitelist = async () => {
+  // For wishlist
+  const [addWhitelist, { isSuccess, isError }] = useAddWishListMutation();
+  const { data: Wishlist } = useGetWishListQuery(undefined);
+  const [
+    removeWishlist,
+    { isSuccess: removedWishlist, isError: errorToRemoveWish },
+  ] = useRemoveWishlistMutation();
+
+  const wishlisted = useMemo(() => {
+    return Wishlist?.data.find((p) => p.email === profile?.data.email);
+  }, [Wishlist?.data, profile?.data.email]);
+
+  const handleWishlist = async () => {
     await addWhitelist({
+      data: { email: profile?.data?.email || "", data: book },
+    });
+  };
+  const removeFromWishlist = async () => {
+    await removeWishlist({
       data: { email: profile?.data?.email || "", data: book },
     });
   };
@@ -20,10 +42,13 @@ const BookCard = ({ book }: { book: IBook }) => {
     if (isSuccess) {
       toast.success("Added to Whitelist");
     }
-    if (isError) {
+    if (isError || errorToRemoveWish) {
       toast.error("Something wrong");
     }
-  }, [isSuccess, isError]);
+    if (removedWishlist) {
+      toast.success("Removed from Wishlist");
+    }
+  }, [isSuccess, isError, removedWishlist, errorToRemoveWish]);
   return (
     <div className="book-card">
       <img
@@ -36,20 +61,39 @@ const BookCard = ({ book }: { book: IBook }) => {
           <span className="mhr-badge">featured</span>
           {/* {featured ? <span className="mhr-badge">featured</span> : <span />} */}
           <div className="text-gray-500 space-x-2">
-            <button className="mhr-whitelist" onClick={() => handleWhitelist()}>
-              <svg
-                width="21"
-                height="21"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+            {wishlisted?.data.map((p) => p.title).includes(book.title) ? (
+              <button
+                className="mhr-Wishlist"
+                onClick={() => removeFromWishlist()}
               >
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-              </svg>
-            </button>
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="#5850ece6"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </button>
+            ) : (
+              <button className="mhr-Wishlist" onClick={() => handleWishlist()}>
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </button>
+            )}
           </div>
         </div>
 
