@@ -7,6 +7,7 @@ import { useAddBookMutation } from "../../redux/Fetaures/Book/bookApi";
 import CommonInput from "./Common/CommonInput";
 import Error from "./Error";
 import Success from "./Success";
+import SelectInput from "./Common/SelectInput";
 
 const Form = () => {
   const { profile } = useProfile();
@@ -16,7 +17,7 @@ const Form = () => {
   // State
   const [name, setName] = useState<string>();
   const [author, setAuthor] = useState<string>();
-  const [genre, setGenre] = useState<string>();
+  const [genre, setGenre] = useState<string>("");
   const [imgUrl, setImgUrl] = useState<string>();
   const [publicationDate, setPublicationDate] = useState<string>();
 
@@ -53,6 +54,22 @@ const Form = () => {
       toast.error("Something wrong! try again");
     }
   }, [isError, isSuccess, navigate]);
+
+  const options = [
+    "Computer and Programming",
+    "Motivational",
+    "Self-Development",
+    "Fiction",
+    "Islamic",
+    "Fantasy romance",
+    "Science Fiction",
+    "Novels",
+    "Liberation War",
+    "Story",
+    "Romantic, Novels",
+    "Poetry",
+    "Essay",
+  ];
 
   return (
     <div>
@@ -97,6 +114,14 @@ const Form = () => {
             key={1}
             value={genre}
             handleOnChange={setGenre}
+          />
+        </div>
+        <div className="space-y-2">
+          <SelectInput
+            title="Genre"
+            options={options}
+            value={genre}
+            setValue={setGenre}
           />
         </div>
         <div className="space-y-2">

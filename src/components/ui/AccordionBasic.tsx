@@ -10,7 +10,7 @@ const AccordionBasic = ({ title, children }: IProps) => {
   return (
     <>
       <div className="border border-slate-200 rounded-md">
-        <button
+        <div
           className={`flex items-center justify-between w-full group px-4 py-3 hover:bg-violet-200 ${
             open ? "bg-violet-200" : ""
           }`}
@@ -30,7 +30,7 @@ const AccordionBasic = ({ title, children }: IProps) => {
               <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z" />
             </svg>
           </div>
-        </button>
+        </div>
         <div className={`p-4  ${!open ? "hidden" : ""}`}>{children}</div>
       </div>
     </>
