@@ -13,7 +13,7 @@ const WishListApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["wishList", "books"],
+      invalidatesTags: ["wishList", "book"],
     }),
     removeWishlist: builder.mutation({
       query: ({ data }: { data: IWishList }) => ({
@@ -21,7 +21,7 @@ const WishListApi = api.injectEndpoints({
         method: "DELETE",
         body: data,
       }),
-      invalidatesTags: ["wishList"],
+      invalidatesTags: ["wishList", "book"],
     }),
   }),
 });

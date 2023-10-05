@@ -9,13 +9,15 @@ import CommonInput from "../ui/Common/CommonInput";
 import ReviewMessage from "./ReviewMessage";
 
 const ReviewBox = ({ id, data }: { id: string; data: IBook }) => {
+  console.log(data, "review");
   const [message, setMessage] = useState<string>("");
   const [addReview, { isSuccess, isError }] = useAddReviewMutation();
   const { profile } = useProfile();
   const handleSubmit = async () => {
-    const reviewExist = data.reviews.filter(
+    const reviewExist = data?.reviews.find(
       (p) => p.email === profile?.data?.email
     );
+    console.log(reviewExist);
     if (reviewExist) {
       toast.warning("Already you given your review");
       setMessage("");
@@ -60,9 +62,9 @@ const ReviewBox = ({ id, data }: { id: string; data: IBook }) => {
         </div>
       </div>
       <div>
-        {data?.reviews?.length > 1 &&
+        {data?.reviews?.length > 0 &&
           data?.reviews
-            .slice(1)
+            // .slice(1)
             .map((review) => <ReviewMessage review={review} />)}
       </div>
     </div>

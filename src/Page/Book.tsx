@@ -3,13 +3,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Link, useNavigate, useParams } from "react-router-dom";
 import bookImg from "../assets/book.jpg";
-import { IBook } from "../redux/Fetaures/AddNewBook/addNewBookSlice";
+import ReviewBox from "../components/ReviewBox";
+import useProfile from "../hooks/useProfile";
 import {
   useDeleteBookMutation,
   useSingleBookQuery,
 } from "../redux/Fetaures/Book/bookApi";
-import useProfile from "../hooks/useProfile";
-import ReviewBox from "../components/ReviewBox";
 
 const Book = () => {
   const navigate = useNavigate();
@@ -101,7 +100,7 @@ const Book = () => {
         </div>
       </div>
       <hr />
-      <ReviewBox id={param.id!} data={result!} />
+      {result && <ReviewBox id={param.id!} data={result} />}
     </div>
   );
 };

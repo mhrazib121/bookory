@@ -25,11 +25,11 @@ const Navbar = () => {
             <li>All Book</li>
           </Link>
           <Link
-            to={`${profile?.data?.email ? "/whitelist" : "/login"}`}
+            to={`${profile?.data?.email ? "/wishlist" : "/login"}`}
             className="cursor-pointer"
             id="mhr-addBook"
           >
-            <li>Whitelist</li>
+            <li>Wishlist</li>
           </Link>
         </ul>
 

@@ -87,7 +87,7 @@ const AllBooks = () => {
 
   return (
     // <MainContainer>
-    <div className="flex gap-3">
+    <div className="flex gap-3 container">
       <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-4 self-start sticky top-[84px] h-[calc(100vh-100px)]">
         {/* Search form */}
         <div className="mb-5">
@@ -159,7 +159,7 @@ const AllBooks = () => {
         </div>
       </div>
       <div>
-        <div className="space-y-6 md:space-y-0 md:grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="space-y-6 md:space-y-0 md:grid grid-cols-1 lg:grid-cols-3 gap-6">
           {data?.data?.map((book: IBook) => (
             <BookCard key={book?.id} book={book} />
           ))}

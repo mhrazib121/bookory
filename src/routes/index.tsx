@@ -28,7 +28,7 @@ const routes = createBrowserRouter([
         element: <AddNewBook />,
       },
       {
-        path: "whitelist",
+        path: "wishlist",
         element: <Whitelist />,
       },
       {
