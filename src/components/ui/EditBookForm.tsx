@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import useProfile from "../../hooks/useProfile";
 import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
 import { useEditBookMutation } from "../../redux/Fetaures/Book/bookApi";
 import CommonInput from "./Common/CommonInput";
@@ -15,8 +14,7 @@ interface FormProps {
   editMode?: boolean;
 }
 
-const EditBookForm = ({ book, editMode }: FormProps) => {
-  const { profile } = useProfile();
+const EditBookForm = ({ book }: FormProps) => {
   const [editBook, { isSuccess: editSuccess, isError: isEditError }] =
     useEditBookMutation();
   const navigate = useNavigate();
@@ -35,8 +33,6 @@ const EditBookForm = ({ book, editMode }: FormProps) => {
     setAuthor("");
     setGenre("");
   };
-
-  const date = new Date();
 
   const handleEditBook = async (e: React.FormEvent) => {
     e.preventDefault();

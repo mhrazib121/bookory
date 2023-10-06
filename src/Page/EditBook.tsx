@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { IBook } from "../redux/Fetaures/AddNewBook/addNewBookSlice";
 import { useSingleBookQuery } from "../redux/Fetaures/Book/bookApi";
 import EditBookForm from "../components/ui/EditBookForm";
 

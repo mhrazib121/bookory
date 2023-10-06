@@ -4,6 +4,7 @@ import BookCardLoader from "../components/ui/Loader/BookCardLoader";
 import { useGetBooksQuery } from "../redux/Fetaures/Book/bookApi";
 import AccordionBasic from "../components/ui/AccordionBasic";
 import { IBook } from "../redux/Fetaures/AddNewBook/addNewBookSlice";
+import Error from "../components/ui/Error";
 
 const filtersData = [
   {
@@ -163,6 +164,7 @@ const AllBooks = () => {
           {data?.data?.map((book: IBook) => (
             <BookCard key={book?.id} book={book} />
           ))}
+          {isError && <Error message="Something is wrong" />}
         </div>
       </div>
     </div>
