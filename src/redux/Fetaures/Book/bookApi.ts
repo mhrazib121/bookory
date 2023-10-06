@@ -28,7 +28,7 @@ const productApi = api.injectEndpoints({
         return booksQuery;
         console.log(booksQuery);
       },
-      providesTags: ["books"],
+      providesTags: ["books", "book"],
     }),
     addBook: builder.mutation<
       IBookResponse | IBookErrorResponse | SerializedError,
@@ -51,7 +51,7 @@ const productApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["book"],
+      invalidatesTags: ["books", "book"],
     }),
     deleteBook: builder.mutation({
       query: (id: string) => ({

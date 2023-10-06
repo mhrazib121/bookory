@@ -11,7 +11,7 @@ const AccordionBasic = ({ title, children }: IProps) => {
     <>
       <div className="border border-slate-200 rounded-md">
         <div
-          className={`flex items-center justify-between w-full group px-4 py-3 hover:bg-violet-200 ${
+          className={`flex items-center justify-between w-full group px-3 py-2 hover:bg-violet-200 ${
             open ? "bg-violet-200" : ""
           }`}
           aria-expanded={open}

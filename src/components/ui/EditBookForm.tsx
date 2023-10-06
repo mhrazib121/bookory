@@ -8,6 +8,8 @@ import { useEditBookMutation } from "../../redux/Fetaures/Book/bookApi";
 import CommonInput from "./Common/CommonInput";
 import Error from "./Error";
 import Success from "./Success";
+import SelectInput from "./Common/SelectInput";
+import { genreOptions } from "../../utils/constants";
 interface FormProps {
   book?: IBook;
   editMode?: boolean;
@@ -95,15 +97,12 @@ const EditBookForm = ({ book, editMode }: FormProps) => {
             handleOnChange={setAuthor}
           />
         </div>
-
         <div className="space-y-2">
-          <CommonInput
-            label="Genre"
-            placeholder="Enter the genre"
-            type="text"
-            key={1}
+          <SelectInput
+            title="Genre"
+            options={genreOptions}
             value={genre}
-            handleOnChange={setGenre}
+            setValue={setGenre}
           />
         </div>
         <div className="space-y-2">

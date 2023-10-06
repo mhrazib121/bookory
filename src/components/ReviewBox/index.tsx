@@ -17,7 +17,6 @@ const ReviewBox = ({ id, data }: { id: string; data: IBook }) => {
     const reviewExist = data?.reviews.find(
       (p) => p.email === profile?.data?.email
     );
-    console.log(reviewExist);
     if (reviewExist) {
       toast.warning("Already you given your review");
       setMessage("");
@@ -49,9 +48,9 @@ const ReviewBox = ({ id, data }: { id: string; data: IBook }) => {
       <div className="flex gap-4 items-center my-8 justify-center">
         <div className="w-[50%]">
           <CommonInput
-            label="Email Address"
-            placeholder="Enter your email address"
-            type="email"
+            label="Review:"
+            placeholder="Please give your valuable feedback"
+            type="text"
             key={1}
             value={message}
             handleOnChange={setMessage}

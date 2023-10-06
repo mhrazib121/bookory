@@ -22,7 +22,7 @@ const CommonInput = ({
         onChange={(e) => handleOnChange(e.target.value)}
         type={type}
         value={value}
-        className="w-full px-3 py-2 text-gray-700 border border-gray-400 rounded leading-tight focus:outline-none focus:border-blue-500"
+        className="w-full px-3 py-2 text-gray-700 border border-gray-400 rounded leading-tight focus:outline-none focus:border-blue-500 hover:bg-violet-200"
         placeholder={placeholder}
       />
     </div>

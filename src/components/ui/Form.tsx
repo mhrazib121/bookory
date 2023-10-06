@@ -8,6 +8,7 @@ import CommonInput from "./Common/CommonInput";
 import Error from "./Error";
 import Success from "./Success";
 import SelectInput from "./Common/SelectInput";
+import { genreOptions } from "../../utils/constants";
 
 const Form = () => {
   const { profile } = useProfile();
@@ -55,22 +56,6 @@ const Form = () => {
     }
   }, [isError, isSuccess, navigate]);
 
-  const options = [
-    "Computer and Programming",
-    "Motivational",
-    "Self-Development",
-    "Fiction",
-    "Islamic",
-    "Fantasy romance",
-    "Science Fiction",
-    "Novels",
-    "Liberation War",
-    "Story",
-    "Romantic, Novels",
-    "Poetry",
-    "Essay",
-  ];
-
   return (
     <div>
       <form className="book-form" onSubmit={handleAddBook}>
@@ -105,21 +90,10 @@ const Form = () => {
             handleOnChange={setAuthor}
           />
         </div>
-
-        <div className="space-y-2">
-          <CommonInput
-            label="Genre"
-            placeholder="Enter the genre"
-            type="text"
-            key={1}
-            value={genre}
-            handleOnChange={setGenre}
-          />
-        </div>
         <div className="space-y-2">
           <SelectInput
             title="Genre"
-            options={options}
+            options={genreOptions}
             value={genre}
             setValue={setGenre}
           />

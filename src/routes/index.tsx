@@ -32,6 +32,10 @@ const routes = createBrowserRouter([
         element: <Whitelist />,
       },
       {
+        path: "all-books/book/:id",
+        element: <Book />,
+      },
+      {
         path: "book/:id",
         element: <Book />,
       },
