@@ -26,7 +26,6 @@ const productApi = api.injectEndpoints({
         }
 
         return booksQuery;
-        console.log(booksQuery);
       },
       providesTags: ["books", "book"],
     }),

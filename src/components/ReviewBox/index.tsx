@@ -9,7 +9,6 @@ import CommonInput from "../ui/Common/CommonInput";
 import ReviewMessage from "./ReviewMessage";
 
 const ReviewBox = ({ id, data }: { id: string; data: IBook }) => {
-  console.log(data, "review");
   const [message, setMessage] = useState<string>("");
   const [addReview, { isSuccess, isError }] = useAddReviewMutation();
   const { profile } = useProfile();

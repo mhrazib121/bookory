@@ -37,7 +37,7 @@ const Whitelist = () => {
         <>
           {userBooks.map((book: IBook) => (
             <>
-              <BookCard key={book?.id} book={book} />
+              <BookCard key={book?.id} book={book} isWishlist />
             </>
           ))}
         </>

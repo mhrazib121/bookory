@@ -28,16 +28,21 @@ const routes = createBrowserRouter([
         element: <AddNewBook />,
       },
       {
-        path: "wishlist",
-        element: <Whitelist />,
-      },
-      {
-        path: "all-books/book/:id",
-        element: <Book />,
-      },
-      {
         path: "book/:id",
         element: <Book />,
+      },
+      {
+        path: "wishlist",
+        children: [
+          {
+            index: true,
+            element: <Whitelist />,
+          },
+          {
+            path: "book/:id",
+            element: <Book />,
+          },
+        ],
       },
       {
         path: "edit-book/:id",
@@ -45,6 +50,7 @@ const routes = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/login",
     element: <Login />,

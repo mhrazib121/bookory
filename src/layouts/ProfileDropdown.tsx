@@ -14,7 +14,6 @@ const ProfileDropdown = ({
     setOpenProfile(false);
     window.location.reload();
   };
-  console.log(data.data);
   return (
     <div className="absolute -left-20 mt-2 mr-2 w-[150px]">
       <ul className=" p-3 bg-white shadow-md rounded-md">

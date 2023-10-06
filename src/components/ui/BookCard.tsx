@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import useProfile from "../../hooks/useProfile";
 import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
@@ -10,7 +10,13 @@ import {
   useRemoveWishlistMutation,
 } from "../../redux/Fetaures/Whitelist/wishlistApi";
 
-const BookCard = ({ book }: { book: IBook }) => {
+const BookCard = ({
+  book,
+  isWishlist,
+}: {
+  book: IBook;
+  isWishlist?: boolean;
+}) => {
   const { author, genre, publicationDate, title, id } = book;
 
   // profile data
@@ -98,7 +104,7 @@ const BookCard = ({ book }: { book: IBook }) => {
         </div>
 
         <div className="space-y-2 mt-4 h-full">
-          <Link to={`book/${id!}`}>
+          <Link to={`${isWishlist ? `/wishlist/book/${id!}` : `/book/${id!}`}`}>
             <h4 className="mhr-book-name">{title}</h4>
           </Link>
           <p className="mhr-author">author: {author}</p>
