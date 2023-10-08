@@ -1,33 +1,13 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
+import React from "react";
+import { IBook } from "../../redux/Fetaures/AddNewBook/addNewBookSlice";
+import ReviewBox from "../ReviewBox";
+import Error from "../ui/Error";
+import { Link } from "react-router-dom";
+import useProfile from "../../hooks/useProfile";
+import { UpdateDropdown } from "../ui/Common/UpdateDropDown";
 
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import ReviewBox from "../components/ReviewBox";
-import useProfile from "../hooks/useProfile";
-import {
-  useDeleteBookMutation,
-  useSingleBookQuery,
-} from "../redux/Fetaures/Book/bookApi";
-import Error from "../components/ui/Error";
-import { UpdateDropdown } from "../components/ui/Common/UpdateDropDown";
-
-const Book = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const param = useParams();
-  const { data } = useSingleBookQuery(param.id || "");
-  const [deleteBook] = useDeleteBookMutation();
-  const result = data?.data;
+const BookDetails = ({ result }: { result: IBook }) => {
   const { profile } = useProfile();
-
-  const handleDelete = async (): Promise<void> => {
-    if (profile) {
-      await deleteBook(result?.id || "");
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
-  };
-  console.log("result", result);
   return (
     <div className="container mx-auto py-8">
       {result ? (
@@ -58,13 +38,13 @@ const Book = () => {
               consequuntur commodi recusandae officia dolores cupiditate.
             </p>
 
-            {location.pathname === `/wishlist/book/${param?.id as string}` && (
+            {location.pathname === `/wishlist/book/${result?.id as string}` && (
               <>
                 <p className="my-2 font-semibold">
                   Reading status: {result?.readingStatus}
                 </p>
                 <UpdateDropdown
-                  wishlistId={param?.id as string}
+                  wishlistId={result?.id as string}
                   options={[
                     "Reading soon",
                     "Currently reading",
@@ -100,7 +80,7 @@ const Book = () => {
                 </Link>
                 <button
                   className="mhr-deleteBook"
-                  onClick={() => handleDelete()}
+                  //   onClick={() => handleDelete()}
                 >
                   <svg
                     fill="none"
@@ -124,9 +104,9 @@ const Book = () => {
         <Error key={1} message="This book is not available now" />
       )}
       <hr />
-      {result && <ReviewBox id={param.id!} data={result} />}
+      {result && <ReviewBox id={result.id!} data={result} />}
     </div>
   );
 };
 
-export default Book;
+export default BookDetails;

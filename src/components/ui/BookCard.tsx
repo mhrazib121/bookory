@@ -24,7 +24,7 @@ const BookCard = ({
 
   // For wishlist
   const [addWhitelist, { isSuccess, isError }] = useAddWishListMutation();
-  const { data: Wishlist } = useGetWishListQuery(undefined);
+  const { data: Wishlist } = useGetWishListQuery({});
   const [
     removeWishlist,
     { isSuccess: removedWishlist, isError: errorToRemoveWish },

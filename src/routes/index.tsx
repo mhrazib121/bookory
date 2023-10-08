@@ -9,6 +9,7 @@ import EditBook from "../Page/EditBook";
 import Register from "../Page/Register";
 import Whitelist from "../Page/Whitelist";
 import AllBooks from "../Page/allbooks";
+import WishlistBookDetails from "../Page/WishlistBookDetails";
 
 const routes = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const routes = createBrowserRouter([
           },
           {
             path: "book/:id",
-            element: <Book />,
+            element: <WishlistBookDetails />,
           },
         ],
       },

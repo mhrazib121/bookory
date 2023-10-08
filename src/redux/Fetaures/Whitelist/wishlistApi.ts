@@ -1,11 +1,32 @@
-import { IWishList, IWishListResponse } from "../../../types/Common";
+import {
+  IUpdateReadingStatus,
+  IWishList,
+  IWishListResponse,
+} from "../../../types/Common";
+import { IBook } from "../AddNewBook/addNewBookSlice";
 import { api } from "../Api/apiSlice";
 
 const WishListApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getWishList: builder.query<IWishListResponse, undefined>({
-      query: () => "/wishlist",
+    getWishList: builder.query<IWishListResponse, { status?: string }>({
+      query: ({ status }) => {
+        let wishlistQuery = "/wishlist/?";
+
+        if (status) {
+          wishlistQuery += `&readingStatus=${status}`;
+        }
+        return wishlistQuery;
+      },
       providesTags: ["wishList"],
+    }),
+    getSingleWishBook: builder.query<
+      { data: IBook },
+      { email: string; id: string }
+    >({
+      query: ({ email, id }) => {
+        return `/wishlist/book-details/?&email=${email}&id=${id}`;
+      },
+      providesTags: ["wishListSingleBook"],
     }),
     addWishList: builder.mutation({
       query: ({ data }: { data: IWishList }) => ({
@@ -23,6 +44,14 @@ const WishListApi = api.injectEndpoints({
       }),
       invalidatesTags: ["wishList", "book"],
     }),
+    updateReadingStatus: builder.mutation({
+      query: ({ data, id }: { data: IUpdateReadingStatus; id: string }) => ({
+        url: `/wishlist/updateStatus/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["wishList", "wishListSingleBook"],
+    }),
   }),
 });
 
@@ -30,4 +59,6 @@ export const {
   useGetWishListQuery,
   useAddWishListMutation,
   useRemoveWishlistMutation,
+  useUpdateReadingStatusMutation,
+  useGetSingleWishBookQuery,
 } = WishListApi;

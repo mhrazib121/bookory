@@ -43,11 +43,16 @@ export type IWishList = {
   email: string;
   data: IBook;
 };
+
+export type IUpdateReadingStatus = {
+  email: string;
+  status: string;
+};
 export interface IWishListResponse {
   data: [
     {
       email: string;
-      data: [IBook];
+      data: IBook[];
     }
   ];
   message: string;

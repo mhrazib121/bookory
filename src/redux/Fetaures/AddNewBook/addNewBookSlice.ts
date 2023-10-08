@@ -16,6 +16,7 @@ export interface IBook {
         }
       ];
   id?: string;
+  readingStatus?: string;
 }
 
 interface BookState {
