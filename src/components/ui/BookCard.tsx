@@ -17,7 +17,7 @@ const BookCard = ({
   book: IBook;
   isWishlist?: boolean;
 }) => {
-  const { author, genre, publicationDate, title, id } = book;
+  const { author, genre, publicationDate, title, id, readingStatus } = book;
 
   // profile data
   const { profile } = useProfile();
@@ -110,6 +110,9 @@ const BookCard = ({
           <p className="mhr-author">author: {author}</p>
           <p className="mhr-author">Genre: {genre}</p>
           <p className="mhr-author">Publication: {publicationDate}</p>
+          {readingStatus ? (
+            <p className="mhr-author">Reading Status: {readingStatus}</p>
+          ) : null}
           <div className="mhr-stars">
             <svg viewBox="0 0 20 20" fill="currentColor" className="star">
               <path
