@@ -1,0 +1,1 @@
+export const backgroundColor = 'linear-gradient(41deg, #FBEEEE 70%, #F7FFFE 100%)';
