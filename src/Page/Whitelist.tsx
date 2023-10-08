@@ -10,7 +10,7 @@ import { IBook } from "../redux/Fetaures/AddNewBook/addNewBookSlice";
 import { useGetWishListQuery } from "../redux/Fetaures/Whitelist/wishlistApi";
 
 const Whitelist = () => {
-  const [status, setStatus] = useState<string>("");
+  const [status, setStatus] = useState<string>("Wishlisted");
   const [wishlistData, setWishlistData] = useState<IBook[]>();
   const { data, isLoading, isError } = useGetWishListQuery({});
   const { profile } = useProfile();
