@@ -57,9 +57,9 @@ const Whitelist = () => {
   // }
 
   if (!isLoading && !isError && data && data?.data?.length > 0) {
-    const userBooks = data?.data?.filter(
-      (p) => profile?.data.email === p.email
-    )[0]?.data;
+    // const userBooks = data?.data?.filter(
+    //   (p) => profile?.data.email === p.email
+    // )[0]?.data;
     if (wishlistData && wishlistData.length > 0) {
       content = (
         <>
